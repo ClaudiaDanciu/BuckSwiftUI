@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct ToDoItem: Identifiable {
-    let id = UUID()
+struct ToDoItem: Identifiable, Codable {
+    var id: String?
     var title: String
     var person: String
 }
@@ -17,9 +17,10 @@ struct ToDoListView: View {
     @State private var items: [ToDoItem] = []
     @State private var newItemTitle = ""
     @State private var selectedPerson = ""
-    @Environment(\.presentationMode) private var presentationMode
     
     private let people = ["Person 1", "Person 2", "Person 3"]
+    
+    @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
         VStack {
@@ -31,7 +32,6 @@ struct ToDoListView: View {
                         Text(item.person) // Display the assigned person
                     }
                 }
-                .onDelete(perform: deleteTask)
             }
             
             VStack {
@@ -57,6 +57,9 @@ struct ToDoListView: View {
                 .padding()
             }
         }
+        .onAppear {
+            fetchTasks()
+        }
         .navigationBarTitle("To-Do List")
         .navigationBarItems(trailing: closeButton)
     }
@@ -74,18 +77,32 @@ struct ToDoListView: View {
     private func addTask() {
         guard !newItemTitle.isEmpty, !selectedPerson.isEmpty else { return }
         let newTask = ToDoItem(title: newItemTitle, person: selectedPerson)
-        items.append(newTask)
-        newItemTitle = ""
-        selectedPerson = ""
+        
+        Task {
+            do {
+                try await FirestoreManager.shared.addTask(newTask)
+                await fetchTasks()
+                newItemTitle = ""
+                selectedPerson = ""
+            } catch {
+                print("Failed to add task: \(error.localizedDescription)")
+            }
+        }
     }
     
-    private func deleteTask(at offsets: IndexSet) {
-        items.remove(atOffsets: offsets)
+    private func fetchTasks() {
+        FirestoreManager.shared.fetchTasks { [self] (tasks, error) in
+            if let error = error {
+                print("Failed to fetch tasks: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let tasks = tasks else { return }
+            
+            DispatchQueue.main.async {
+                self.items = tasks
+            }
+        }
     }
 }
 
-struct ToDoListView_Previews: PreviewProvider {
-    static var previews: some View {
-        ToDoListView()
-    }
-}
