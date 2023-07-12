@@ -17,6 +17,7 @@
 		6A7AE3F02A5DA8E300A11292 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 6A7AE3EF2A5DA8E300A11292 /* FirebaseStorage */; };
 		6A7AE3F42A5DA97100A11292 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7AE3F32A5DA97100A11292 /* AuthViewModel.swift */; };
 		6A7AE3F62A5E20B200A11292 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7AE3F52A5E20B200A11292 /* TabBarView.swift */; };
+		6A7AE3FE2A5EB9DB00A11292 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7AE3FD2A5EB9DB00A11292 /* ToDoListView.swift */; };
 		6AB9A10C2A581A3000297C27 /* BucksSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB9A10B2A581A3000297C27 /* BucksSwiftUIApp.swift */; };
 		6AB9A10E2A581A3000297C27 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB9A10D2A581A3000297C27 /* RootView.swift */; };
 		6AB9A1102A581A3100297C27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AB9A10F2A581A3100297C27 /* Assets.xcassets */; };
@@ -53,6 +54,7 @@
 		6A7AE3E62A5DA62200A11292 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A7AE3F32A5DA97100A11292 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		6A7AE3F52A5E20B200A11292 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
+		6A7AE3FD2A5EB9DB00A11292 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
 		6AB9A1082A581A3000297C27 /* BucksSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BucksSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AB9A10B2A581A3000297C27 /* BucksSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucksSwiftUIApp.swift; sourceTree = "<group>"; };
 		6AB9A10D2A581A3000297C27 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -97,22 +99,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6A7AE3F12A5DA92A00A11292 /* View */ = {
+		6A7AE3F12A5DA92A00A11292 /* AuthenticationView */ = {
 			isa = PBXGroup;
 			children = (
 				6AB9A13F2A581B9A00297C27 /* LoginView.swift */,
 				6AB9A1432A58255A00297C27 /* RegistrationView.swift */,
-				6A7AE3F52A5E20B200A11292 /* TabBarView.swift */,
 			);
-			path = View;
+			path = AuthenticationView;
 			sourceTree = "<group>";
 		};
-		6A7AE3F22A5DA94000A11292 /* ViewModel */ = {
+		6A7AE3F22A5DA94000A11292 /* AuthenticationViewModel */ = {
 			isa = PBXGroup;
 			children = (
 				6A7AE3F32A5DA97100A11292 /* AuthViewModel.swift */,
 			);
-			path = ViewModel;
+			path = AuthenticationViewModel;
+			sourceTree = "<group>";
+		};
+		6A7AE3FC2A5EB9C500A11292 /* ToDoList */ = {
+			isa = PBXGroup;
+			children = (
+				6A7AE3FD2A5EB9DB00A11292 /* ToDoListView.swift */,
+			);
+			path = ToDoList;
+			sourceTree = "<group>";
+		};
+		6A7AE3FF2A5EBAF100A11292 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				6A7AE4002A5EBB0000A11292 /* NavigationView */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		6A7AE4002A5EBB0000A11292 /* NavigationView */ = {
+			isa = PBXGroup;
+			children = (
+				6A7AE3F52A5E20B200A11292 /* TabBarView.swift */,
+			);
+			path = NavigationView;
 			sourceTree = "<group>";
 		};
 		6AB9A0FF2A581A2F00297C27 = {
@@ -185,6 +210,8 @@
 		6AB9A1372A581A6500297C27 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				6A7AE3FF2A5EBAF100A11292 /* Navigation */,
+				6A7AE3FC2A5EB9C500A11292 /* ToDoList */,
 				6AB9A13B2A581AF800297C27 /* Authentication */,
 				6AB9A13C2A581B0700297C27 /* Profile */,
 				6AB9A13A2A581AE500297C27 /* Root */,
@@ -220,8 +247,8 @@
 		6AB9A13B2A581AF800297C27 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				6A7AE3F22A5DA94000A11292 /* ViewModel */,
-				6A7AE3F12A5DA92A00A11292 /* View */,
+				6A7AE3F22A5DA94000A11292 /* AuthenticationViewModel */,
+				6A7AE3F12A5DA92A00A11292 /* AuthenticationView */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -377,6 +404,7 @@
 				6AB9A1402A581B9A00297C27 /* LoginView.swift in Sources */,
 				6AB9A1422A581DFE00297C27 /* InputView.swift in Sources */,
 				6AB9A10E2A581A3000297C27 /* RootView.swift in Sources */,
+				6A7AE3FE2A5EB9DB00A11292 /* ToDoListView.swift in Sources */,
 				6AB9A10C2A581A3000297C27 /* BucksSwiftUIApp.swift in Sources */,
 				6A7AE3E52A5C5C7300A11292 /* User.swift in Sources */,
 				6A7AE3E12A5C569500A11292 /* ProfileView.swift in Sources */,

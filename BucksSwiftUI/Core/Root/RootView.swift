@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct RootView: View {
-    @State var selectedTab: Tabs = .profileTab
+    @State var selectedTab: Tabs = .homeTab
 
     @EnvironmentObject var viewModel: AuthViewModel
     

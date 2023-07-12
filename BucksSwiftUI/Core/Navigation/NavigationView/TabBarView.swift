@@ -9,12 +9,13 @@ import SwiftUI
 
 enum Tabs: Int {
     case homeTab = 0
-    case profileTab = 1 
+    case profileTab = 1
 }
 
 struct TabBarView: View {
     
     @Binding var selectedTab: Tabs
+    @State private var isAddButtonTapped = false
     
     var body: some View {
         HStack(alignment: .center) {
@@ -41,10 +42,10 @@ struct TabBarView: View {
                     .frame(width: geo.size.width, height: geo.size.height)
                 }
             }
-            .tint(Color(.systemGray))
+            .tint(selectedTab == .homeTab ? .blue : .gray)
             
             Button {
-                // New chats
+                isAddButtonTapped = true
             } label: {
                 VStack (alignment: .center, spacing: 4) {
                     Image(systemName: "plus.circle.fill")
@@ -79,9 +80,14 @@ struct TabBarView: View {
                     .frame(width: geo.size.width, height: geo.size.height)
                 }
             }
-            .tint(Color(.systemGray))
+            .tint(selectedTab == .profileTab ? .blue : .gray)
         }
         .frame(height: 82)
+        .sheet(isPresented: $isAddButtonTapped) {
+            NavigationView {
+                ToDoListView()
+            }
+        }
     }
 }
 
