@@ -15,23 +15,19 @@ struct Category: Identifiable {
 struct HomeView: View {
     @State private var categories: [Category] = []
     @State private var searchText = ""
-    @State private var sortAscending = true
+    @State private var sortAscending: [Bool] = []
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(categories) { category in
+                ForEach(categories.indices, id: \.self) { index in
+                    let category = categories[index]
                     Section(header: HStack {
                         Text(category.person)
                         Spacer()
-                        sortIcon(for: category)
+                        sortIcon(for: index)
                     }) {
-                        ForEach(category.tasks.filter {
-                            searchText.isEmpty || $0.title.localizedStandardContains(searchText)
-                        }
-                        .sorted {
-                            sortAscending ? $0.title < $1.title : $0.title > $1.title
-                        }) { item in
+                        ForEach(sortedTasks(for: index)) { item in
                             Text(item.title)
                         }
                     }
@@ -64,26 +60,36 @@ struct HomeView: View {
             categories = groupedTasks.map { person, tasks in
                 Category(person: person, tasks: tasks)
             }
+            
+            // Initialize sortAscending array with default value
+            sortAscending = Array(repeating: true, count: categories.count)
         }
     }
     
-    private func sortIcon(for category: Category) -> some View {
-        Image(systemName: sortIconName(for: category))
+    private func sortedTasks(for index: Int) -> [ToDoItem] {
+        let category = categories[index]
+        return category.tasks.sorted { (task1, task2) -> Bool in
+            let title1 = task1.title ?? ""
+            let title2 = task2.title ?? ""
+            return sortAscending[index] ? title1 < title2 : title1 > title2
+        }
+    }
+
+    
+    private func sortIcon(for index: Int) -> some View {
+        Image(systemName: sortIconName(for: index))
             .imageScale(.small)
             .onTapGesture {
-                toggleSort(for: category)
+                toggleSort(for: index)
             }
     }
     
-    private func sortIconName(for category: Category) -> String {
-        return sortAscending ? "arrow.up" : "arrow.down"
+    private func sortIconName(for index: Int) -> String {
+        return sortAscending[index] ? "arrow.up" : "arrow.down"
     }
     
-    private func toggleSort(for category: Category) {
-        if let index = categories.firstIndex(where: { $0.id == category.id }) {
-            categories[index].tasks.reverse()
-            sortAscending.toggle()
-        }
+    private func toggleSort(for index: Int) {
+        sortAscending[index].toggle()
     }
 }
 
