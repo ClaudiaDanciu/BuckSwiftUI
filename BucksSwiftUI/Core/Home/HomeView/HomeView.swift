@@ -68,11 +68,15 @@ struct HomeView: View {
     
     private func sortedTasks(for index: Int) -> [ToDoItem] {
         let category = categories[index]
-        return category.tasks.sorted { (task1, task2) -> Bool in
-            let title1 = task1.title ?? ""
-            let title2 = task2.title ?? ""
-            return sortAscending[index] ? title1 < title2 : title1 > title2
-        }
+        return category.tasks
+            .filter { task in
+                searchText.isEmpty || task.title.localizedStandardContains(searchText)
+            }
+            .sorted { (task1, task2) -> Bool in
+                let title1 = task1.title ?? ""
+                let title2 = task2.title ?? ""
+                return sortAscending[index] ? title1 < title2 : title1 > title2
+            }
     }
 
     
