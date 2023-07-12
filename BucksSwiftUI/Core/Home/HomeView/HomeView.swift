@@ -24,21 +24,24 @@ struct HomeView: View {
                     let category = categories[index]
                     Section(header: HStack {
                         Text(category.person)
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                            .padding(.leading, 8)
                         Spacer()
                         sortIcon(for: index)
+                            .padding(.trailing, 8)
                     }) {
                         ForEach(sortedTasks(for: index)) { item in
-                            Text(item.title)
+                            TaskRowView(title: item.title)
                         }
                     }
                 }
             }
-            .listStyle(PlainListStyle())
+            .listStyle(GroupedListStyle())
             .navigationBarTitle("Home")
             .searchable(text: $searchText, prompt: "Search") // Add the searchable modifier
         }
         .navigationViewStyle(StackNavigationViewStyle())
-        .edgesIgnoringSafeArea(.bottom) // Extend the content to the bottom edge
         .onAppear {
             fetchTasks()
         }
@@ -83,6 +86,7 @@ struct HomeView: View {
     private func sortIcon(for index: Int) -> some View {
         Image(systemName: sortIconName(for: index))
             .imageScale(.small)
+            .foregroundColor(.primary)
             .onTapGesture {
                 toggleSort(for: index)
             }
@@ -94,6 +98,21 @@ struct HomeView: View {
     
     private func toggleSort(for index: Int) {
         sortAscending[index].toggle()
+    }
+}
+
+struct TaskRowView: View {
+    var title: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(title)
+                .font(.subheadline)
+                .foregroundColor(.primary)
+                .padding(.leading, 8)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.vertical, 8)
     }
 }
 
