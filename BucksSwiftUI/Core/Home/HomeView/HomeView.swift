@@ -15,14 +15,22 @@ struct Category: Identifiable {
 struct HomeView: View {
     @State private var categories: [Category] = []
     @State private var searchText = ""
+    @State private var sortAscending = true
 
     var body: some View {
         NavigationView {
             List {
                 ForEach(categories) { category in
-                    Section(header: Text(category.person)) {
+                    Section(header: HStack {
+                        Text(category.person)
+                        Spacer()
+                        sortIcon(for: category)
+                    }) {
                         ForEach(category.tasks.filter {
                             searchText.isEmpty || $0.title.localizedStandardContains(searchText)
+                        }
+                        .sorted {
+                            sortAscending ? $0.title < $1.title : $0.title > $1.title
                         }) { item in
                             Text(item.title)
                         }
@@ -56,6 +64,25 @@ struct HomeView: View {
             categories = groupedTasks.map { person, tasks in
                 Category(person: person, tasks: tasks)
             }
+        }
+    }
+    
+    private func sortIcon(for category: Category) -> some View {
+        Image(systemName: sortIconName(for: category))
+            .imageScale(.small)
+            .onTapGesture {
+                toggleSort(for: category)
+            }
+    }
+    
+    private func sortIconName(for category: Category) -> String {
+        return sortAscending ? "arrow.up" : "arrow.down"
+    }
+    
+    private func toggleSort(for category: Category) {
+        if let index = categories.firstIndex(where: { $0.id == category.id }) {
+            categories[index].tasks.reverse()
+            sortAscending.toggle()
         }
     }
 }
