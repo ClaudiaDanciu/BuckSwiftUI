@@ -19,6 +19,9 @@ struct RootView: View {
                 if selectedTab == .profileTab {
                     ProfileView()
                 }
+                else if selectedTab == .homeTab{
+                    HomeView()
+                }
                 VStack {
                     Spacer()
                     TabBarView(selectedTab: $selectedTab)
@@ -36,5 +39,6 @@ struct RootView: View {
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView()
+            .environmentObject(AuthViewModel())
     }
 }

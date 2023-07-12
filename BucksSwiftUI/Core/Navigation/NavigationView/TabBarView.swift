@@ -16,6 +16,7 @@ struct TabBarView: View {
     
     @Binding var selectedTab: Tabs
     @State private var isAddButtonTapped = false
+    @State private var showHomeView = false 
     
     var body: some View {
         HStack(alignment: .center) {
@@ -87,7 +88,7 @@ struct TabBarView: View {
             NavigationView {
                 ToDoListView()
             }
-        }
+        }        
     }
 }
 
