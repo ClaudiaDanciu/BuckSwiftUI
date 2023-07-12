@@ -4,7 +4,6 @@
 //
 //  Created by Claudia Danciu on 12/07/2023.
 //
-
 import SwiftUI
 
 struct Category: Identifiable {
@@ -13,16 +12,18 @@ struct Category: Identifiable {
     var tasks: [ToDoItem]
 }
 
-
 struct HomeView: View {
     @State private var categories: [Category] = []
-    
+    @State private var searchText = ""
+
     var body: some View {
         NavigationView {
             List {
                 ForEach(categories) { category in
                     Section(header: Text(category.person)) {
-                        ForEach(category.tasks) { item in
+                        ForEach(category.tasks.filter {
+                            searchText.isEmpty || $0.title.localizedStandardContains(searchText)
+                        }) { item in
                             Text(item.title)
                         }
                     }
@@ -30,6 +31,7 @@ struct HomeView: View {
             }
             .listStyle(PlainListStyle())
             .navigationBarTitle("Home")
+            .searchable(text: $searchText, prompt: "Search") // Add the searchable modifier
         }
         .navigationViewStyle(StackNavigationViewStyle())
         .edgesIgnoringSafeArea(.bottom) // Extend the content to the bottom edge
