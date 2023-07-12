@@ -18,6 +18,7 @@
 		6A7AE3F42A5DA97100A11292 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7AE3F32A5DA97100A11292 /* AuthViewModel.swift */; };
 		6A7AE3F62A5E20B200A11292 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7AE3F52A5E20B200A11292 /* TabBarView.swift */; };
 		6A7AE3FE2A5EB9DB00A11292 /* ToDoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7AE3FD2A5EB9DB00A11292 /* ToDoListView.swift */; };
+		6A7AE40D2A5EEFBB00A11292 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7AE40C2A5EEFBB00A11292 /* FirebaseManager.swift */; };
 		6AB9A10C2A581A3000297C27 /* BucksSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB9A10B2A581A3000297C27 /* BucksSwiftUIApp.swift */; };
 		6AB9A10E2A581A3000297C27 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB9A10D2A581A3000297C27 /* RootView.swift */; };
 		6AB9A1102A581A3100297C27 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AB9A10F2A581A3100297C27 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		6A7AE3F32A5DA97100A11292 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		6A7AE3F52A5E20B200A11292 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		6A7AE3FD2A5EB9DB00A11292 /* ToDoListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListView.swift; sourceTree = "<group>"; };
+		6A7AE40C2A5EEFBB00A11292 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		6AB9A1082A581A3000297C27 /* BucksSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BucksSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AB9A10B2A581A3000297C27 /* BucksSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BucksSwiftUIApp.swift; sourceTree = "<group>"; };
 		6AB9A10D2A581A3000297C27 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -119,7 +121,8 @@
 		6A7AE3FC2A5EB9C500A11292 /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				6A7AE3FD2A5EB9DB00A11292 /* ToDoListView.swift */,
+				6A7AE40B2A5EEF9700A11292 /* DataStore */,
+				6A7AE40A2A5EEF8600A11292 /* ToDoListView */,
 			);
 			path = ToDoList;
 			sourceTree = "<group>";
@@ -138,6 +141,22 @@
 				6A7AE3F52A5E20B200A11292 /* TabBarView.swift */,
 			);
 			path = NavigationView;
+			sourceTree = "<group>";
+		};
+		6A7AE40A2A5EEF8600A11292 /* ToDoListView */ = {
+			isa = PBXGroup;
+			children = (
+				6A7AE3FD2A5EB9DB00A11292 /* ToDoListView.swift */,
+			);
+			path = ToDoListView;
+			sourceTree = "<group>";
+		};
+		6A7AE40B2A5EEF9700A11292 /* DataStore */ = {
+			isa = PBXGroup;
+			children = (
+				6A7AE40C2A5EEFBB00A11292 /* FirebaseManager.swift */,
+			);
+			path = DataStore;
 			sourceTree = "<group>";
 		};
 		6AB9A0FF2A581A2F00297C27 = {
@@ -401,6 +420,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A7AE40D2A5EEFBB00A11292 /* FirebaseManager.swift in Sources */,
 				6AB9A1402A581B9A00297C27 /* LoginView.swift in Sources */,
 				6AB9A1422A581DFE00297C27 /* InputView.swift in Sources */,
 				6AB9A10E2A581A3000297C27 /* RootView.swift in Sources */,
