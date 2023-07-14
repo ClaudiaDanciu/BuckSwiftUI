@@ -32,6 +32,7 @@
 		6AB9A1402A581B9A00297C27 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB9A13F2A581B9A00297C27 /* LoginView.swift */; };
 		6AB9A1422A581DFE00297C27 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB9A1412A581DFE00297C27 /* InputView.swift */; };
 		6AB9A1442A58255A00297C27 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB9A1432A58255A00297C27 /* RegistrationView.swift */; };
+		6ABDFDB12A61A17300436768 /* TaskRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ABDFDB02A61A17300436768 /* TaskRowView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		6AB9A13F2A581B9A00297C27 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6AB9A1412A581DFE00297C27 /* InputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 		6AB9A1432A58255A00297C27 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		6ABDFDB02A61A17300436768 /* TaskRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskRowView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				6A7AE4122A5F022F00A11292 /* HomeView.swift */,
+				6ABDFDB02A61A17300436768 /* TaskRowView.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				6A7AE3E52A5C5C7300A11292 /* User.swift in Sources */,
 				6A7AE3E12A5C569500A11292 /* ProfileView.swift in Sources */,
 				6AB9A1442A58255A00297C27 /* RegistrationView.swift in Sources */,
+				6ABDFDB12A61A17300436768 /* TaskRowView.swift in Sources */,
 				6A7AE3E32A5C588D00A11292 /* SettingsRowView.swift in Sources */,
 				6A7AE3F42A5DA97100A11292 /* AuthViewModel.swift in Sources */,
 				6A7AE3F62A5E20B200A11292 /* TabBarView.swift in Sources */,
