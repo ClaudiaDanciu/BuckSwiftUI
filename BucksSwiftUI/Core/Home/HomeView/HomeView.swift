@@ -110,8 +110,9 @@ struct TaskRowView: View {
             RadioButton(isSelected: $isSelected) // Added radio button
             Text(title)
                 .font(.subheadline)
-                .foregroundColor(.primary)
+                .foregroundColor(isSelected ? .gray : .primary) // Cross the text if isSelected is true
                 .padding(.leading, 8)
+                .strikethrough(isSelected, color: .gray) // Add strikethrough if isSelected is true
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
