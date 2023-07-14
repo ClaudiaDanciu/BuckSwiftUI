@@ -8,6 +8,7 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 import FirebaseFirestoreSwift
+import FirebaseAuth
 
 class FirestoreManager {
     static let shared = FirestoreManager()
@@ -35,30 +36,34 @@ class FirestoreManager {
     }
     
     func fetchTasks(completion: @escaping ([ToDoItem]?, Error?) -> Void) {
-        db.collection(collectionName).addSnapshotListener { (snapshot, error) in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-            
-            guard let snapshot = snapshot else {
-                completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Snapshot is nil"]))
-                return
-            }
-            
-            var tasks: [ToDoItem] = []
-            
-            for document in snapshot.documents {
-                
-                if let task = try? document.data(as: ToDoItem.self) {
-                    tasks.append(task)
+        if let currentUser = Auth.auth().currentUser {
+            let userId = currentUser.uid
+
+            db.collection(collectionName)
+                .whereField("userId", isEqualTo: userId)
+                .addSnapshotListener { (snapshot, error) in
+                    if let error = error {
+                        completion(nil, error)
+                        return
+                    }
+                    
+                    guard let snapshot = snapshot else {
+                        completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "Snapshot is nil"]))
+                        return
+                    }
+                    
+                    var tasks: [ToDoItem] = []
+                    
+                    for document in snapshot.documents {
+                        if let task = try? document.data(as: ToDoItem.self) {
+                            tasks.append(task)
+                        }
+                    }
+                    
+                    completion(tasks, nil)
                 }
-                
-            }
-            
-            completion(tasks, nil)
+        } else {
+            completion(nil, NSError(domain: "", code: 0, userInfo: [NSLocalizedDescriptionKey: "User not logged in"]))
         }
     }
-    
-    
 }

@@ -6,11 +6,20 @@
 //
 
 import SwiftUI
+import Firebase // Add import statement for Firebase
 
 struct ToDoItem: Identifiable, Codable {
     var id: String?
     var title: String
     var person: String
+    var userId: String // Add userId property
+    
+    // Initialize ToDoItem with userId
+    init(title: String, person: String, userId: String) {
+        self.title = title
+        self.person = person
+        self.userId = userId
+    }
 }
 
 struct ToDoListView: View {
@@ -76,7 +85,13 @@ struct ToDoListView: View {
     
     private func addTask() {
         guard !newItemTitle.isEmpty, !selectedPerson.isEmpty else { return }
-        let newTask = ToDoItem(title: newItemTitle, person: selectedPerson)
+        
+        guard let userId = Auth.auth().currentUser?.uid else {
+            print("User not logged in")
+            return
+        }
+        
+        let newTask = ToDoItem(title: newItemTitle, person: selectedPerson, userId: userId)
         
         Task {
             do {
@@ -105,4 +120,3 @@ struct ToDoListView: View {
         }
     }
 }
-
