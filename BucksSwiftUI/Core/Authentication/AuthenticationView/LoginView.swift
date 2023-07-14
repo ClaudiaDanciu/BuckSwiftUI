@@ -20,8 +20,8 @@ struct LoginView: View {
                 Image("logo")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 100, height: 120)
-                    .padding(.vertical, 32)
+                    .frame(width: 200, height: 240)
+                    .padding(.vertical, 12)
                 
                 // form fields with reused components
                 
@@ -84,6 +84,7 @@ struct LoginView: View {
                             .bold()
                     }
                     .font(.system(size: 14))
+                    .padding(.bottom, 24)
                 }
             }
         }

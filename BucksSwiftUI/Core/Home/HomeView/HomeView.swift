@@ -18,34 +18,40 @@ struct HomeView: View {
     @State private var sortAscending: [Bool] = []
 
     var body: some View {
-        NavigationView {
-            List {
-                ForEach(categories.indices, id: \.self) { index in
-                    let category = categories[index]
-                    Section(header: HStack {
-                        Text(category.person)
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                            .padding(.leading, 8)
-                        Spacer()
-                        sortIcon(for: index)
-                            .padding(.trailing, 8)
-                    }) {
-                        ForEach(sortedTasks(for: index)) { item in
-                            TaskRowView(title: item.title)
+            NavigationView {
+                List {
+                    ForEach(categories.indices, id: \.self) { categoryIndex in
+                        let category = categories[categoryIndex]
+                        Section(header: HStack {
+                            Text(category.person)
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                                .padding(.leading, 8)
+                            Spacer()
+                            sortIcon(for: categoryIndex)
+                                .padding(.trailing, 8)
+                        }) {
+                            ForEach(category.tasks.indices, id: \.self) { taskIndex in
+                                TaskRowView(title: category.tasks[taskIndex].title)
+                            }
+                            .onDelete { indexSet in
+                                deleteTasks(at: indexSet, in: categoryIndex)
+                            }
                         }
                     }
                 }
+                .listStyle(GroupedListStyle())
+                .navigationBarTitle("Home")
+                .searchable(text: $searchText, prompt: "Search") // Add the searchable modifier
+                .toolbar {
+                    EditButton() // Add the EditButton to enable editing mode
+                }
             }
-            .listStyle(GroupedListStyle())
-            .navigationBarTitle("Home")
-            .searchable(text: $searchText, prompt: "Search") // Add the searchable modifier
+            .navigationViewStyle(StackNavigationViewStyle())
+            .onAppear {
+                fetchTasks()
+            }
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .onAppear {
-            fetchTasks()
-        }
-    }
     
     private func fetchTasks() {
         FirestoreManager.shared.fetchTasks { [self] (tasks, error) in
@@ -83,6 +89,7 @@ struct HomeView: View {
     }
 
     
+    
     private func sortIcon(for index: Int) -> some View {
         Image(systemName: sortIconName(for: index))
             .imageScale(.small)
@@ -99,21 +106,17 @@ struct HomeView: View {
     private func toggleSort(for index: Int) {
         sortAscending[index].toggle()
     }
-}
-
-struct TaskRowView: View {
-    var title: String
     
-    var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(title)
-                .font(.subheadline)
-                .foregroundColor(.primary)
-                .padding(.leading, 8)
+    private func deleteTasks(at indexSet: IndexSet, in categoryIndex: Int) {
+            let category = categories[categoryIndex]
+            let sortedIndexSet = indexSet.sorted()
+            
+            for index in sortedIndexSet {
+                let task = category.tasks[index]
+                
+                categories[categoryIndex].tasks.remove(at: index)
+            }
         }
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(.vertical, 8)
-    }
 }
 
 struct HomeView_Previews: PreviewProvider {
