@@ -1,4 +1,3 @@
-//
 //  AuthViewModel.swift
 //  BucksSwiftUI
 //

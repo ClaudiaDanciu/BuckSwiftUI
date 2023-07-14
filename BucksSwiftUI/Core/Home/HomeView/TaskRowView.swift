@@ -13,12 +13,12 @@ struct TaskRowView: View {
     
     var body: some View {
         HStack {
-            RadioButton(isSelected: $isSelected) // Added radio button
+            RadioButton(isSelected: $isSelected) // Display the radio button
             Text(title)
                 .font(.subheadline)
-                .foregroundColor(isSelected ? .gray : .primary) // Cross the text if isSelected is true
+                .foregroundColor(isSelected ? .gray : .primary) // Set text color based on isSelected
                 .padding(.leading, 8)
-                .strikethrough(isSelected, color: .gray) // Add strikethrough if isSelected is true
+                .strikethrough(isSelected, color: .gray) // Apply strikethrough style if isSelected is true
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
@@ -30,9 +30,9 @@ struct RadioButton: View {
 
     var body: some View {
         Button(action: {
-            isSelected.toggle()
+            isSelected.toggle() // Toggle the isSelected state when the button is tapped
         }) {
-            Image(systemName: isSelected ? "largecircle.fill.circle" : "circle")
+            Image(systemName: isSelected ? "largecircle.fill.circle" : "circle") // Display a filled or empty circle based on isSelected
                 .foregroundColor(.blue)
                 .imageScale(.large)
         }

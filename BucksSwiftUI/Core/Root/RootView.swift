@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  BucksSwiftUI
-//
-//  Created by Claudia Danciu on 07/07/2023.
-//
-
 import SwiftUI
 
 struct RootView: View {
@@ -16,25 +9,25 @@ struct RootView: View {
         VStack(spacing: 0) { // Use a VStack and set spacing to 0
             if viewModel.userSession != nil {
                 if selectedTab == .profileTab {
-                    ProfileView()
+                    ProfileView() // Show the ProfileView if the profile tab is selected
                 }
-                else if selectedTab == .homeTab{
-                    HomeView()
+                else if selectedTab == .homeTab {
+                    HomeView() // Show the HomeView if the home tab is selected
                 }
             } else {
-                LoginView()
+                LoginView() // Show the LoginView if the user session is not available
             }
             
             TabBarView(selectedTab: $selectedTab)
                 .padding(.bottom, 12) // Add bottom padding to the TabBarView
         }
-        .edgesIgnoringSafeArea(.bottom) // Extend the content to the bottom edge
+        .edgesIgnoringSafeArea(.bottom) // Extend the content to the bottom edge, ignoring safe area
     }
 }
 
 struct RootView_Previews: PreviewProvider {
     static var previews: some View {
         RootView()
-            .environmentObject(AuthViewModel())
+            .environmentObject(AuthViewModel()) // Inject the AuthViewModel as an environment object
     }
 }

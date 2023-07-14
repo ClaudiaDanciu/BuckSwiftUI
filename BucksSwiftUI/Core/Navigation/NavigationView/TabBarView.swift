@@ -14,22 +14,21 @@ enum Tabs: Int {
 
 struct TabBarView: View {
     
-    @Binding var selectedTab: Tabs
-    @State private var isAddButtonTapped = false
-    @State private var showHomeView = false 
+    @Binding var selectedTab: Tabs // Bind the selected tab
+    @State private var isAddButtonTapped = false // Track if the add button is tapped
+    @State private var showHomeView = false // Track if the home view should be shown
     
     var body: some View {
         HStack(alignment: .center) {
             Button {
-                // Switch to chats home
-                selectedTab = .homeTab
+                selectedTab = .homeTab // Switch to home tab
             } label: {
                 GeometryReader { geo in
                     if selectedTab == .homeTab {
                         Rectangle()
                             .foregroundColor(.blue)
                             .frame(width: geo.size.width/2, height: 4)
-                            .padding(.leading, geo.size.width/4)
+                            .padding(.leading, geo.size.width/4) // Highlight the selected tab
                     }
                     VStack (alignment: .center, spacing: 4) {
                         
@@ -43,10 +42,10 @@ struct TabBarView: View {
                     .frame(width: geo.size.width, height: geo.size.height)
                 }
             }
-            .tint(selectedTab == .homeTab ? .blue : .gray)
+            .tint(selectedTab == .homeTab ? .blue : .gray) // Set the button tint color based on the selected tab
             
             Button {
-                isAddButtonTapped = true
+                isAddButtonTapped = true // Set the flag to show the add button sheet
             } label: {
                 VStack (alignment: .center, spacing: 4) {
                     Image(systemName: "plus.circle.fill")
@@ -57,18 +56,17 @@ struct TabBarView: View {
                         .font(.system(size: 16))
                 }
             }
-            .tint(Color(.systemBlue))
+            .tint(Color(.systemBlue)) // Set the button tint color
             
             Button {
-                // Switch to chats profile
-                selectedTab = .profileTab
+                selectedTab = .profileTab // Switch to profile tab
             } label: {
                 GeometryReader { geo in
                     if selectedTab == .profileTab {
                         Rectangle()
                             .foregroundColor(.blue)
                             .frame(width: geo.size.width/2, height: 4)
-                            .padding(.leading, geo.size.width/4)
+                            .padding(.leading, geo.size.width/4) // Highlight the selected tab
                     }
                     VStack (alignment: .center, spacing: 4) {
                         Image(systemName: "person")
@@ -81,19 +79,19 @@ struct TabBarView: View {
                     .frame(width: geo.size.width, height: geo.size.height)
                 }
             }
-            .tint(selectedTab == .profileTab ? .blue : .gray)
+            .tint(selectedTab == .profileTab ? .blue : .gray) // Set the button tint color based on the selected tab
         }
         .frame(height: 82)
         .sheet(isPresented: $isAddButtonTapped) {
             NavigationView {
-                ToDoListView()
+                ToDoListView() // Present the ToDoListView in a sheet when add button is tapped
             }
-        }        
+        }
     }
 }
 
 struct TabBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TabBarView(selectedTab: .constant(.profileTab))
+        TabBarView(selectedTab: .constant(.profileTab)) // Preview with a selected tab
     }
 }

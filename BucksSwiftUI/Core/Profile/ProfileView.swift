@@ -13,6 +13,7 @@ struct ProfileView: View {
     var body: some View {
         if let user = viewModel.currentUser {
             List {
+                // User Profile Section
                 Section {
                     HStack {
                         Text(user.initials)
@@ -36,6 +37,7 @@ struct ProfileView: View {
                     }
                 }
                 
+                // General Section
                 Section("General") {
                     HStack {
                         SettingsRowView(
@@ -50,6 +52,7 @@ struct ProfileView: View {
                     }
                 }
                 
+                // Account Section
                 Section("Account") {
                     // Sign out button
                     Button {

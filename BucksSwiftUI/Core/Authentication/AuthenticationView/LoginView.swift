@@ -30,7 +30,7 @@ struct LoginView: View {
                         text: $email,
                         title: "Email Address",
                         placeholder: "user@example.co.uk"
-                        )
+                    )
                     .autocapitalization(.none)
                     // the secured filed is already default to false
                     
@@ -79,7 +79,7 @@ struct LoginView: View {
                         .navigationBarBackButtonHidden(true)
                 } label: {
                     HStack(spacing: 3) {
-                        Text("If you don't have and account")
+                        Text("If you don't have an account")
                         Text("Sign up")
                             .bold()
                     }
@@ -96,9 +96,9 @@ struct LoginView: View {
 extension LoginView: AuthenticationFormProtocol {
     var formIsValid: Bool {
         return !email.isEmpty
-        && email.contains("@")
-        && !password.isEmpty
-        && password.count > 5
+            && email.contains("@")
+            && !password.isEmpty
+            && password.count > 5
     }
 }
 

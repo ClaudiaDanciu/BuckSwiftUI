@@ -13,13 +13,13 @@ struct BucksSwiftUIApp: App {
     @StateObject var viewModel = AuthViewModel()
     
     init() {
-        FirebaseApp.configure()
+        FirebaseApp.configure() // Initialize Firebase
     }
     
     var body: some Scene {
         WindowGroup {
             RootView()
-                .environmentObject(viewModel)
+                .environmentObject(viewModel) // Inject the authentication view model
         }
     }
 }

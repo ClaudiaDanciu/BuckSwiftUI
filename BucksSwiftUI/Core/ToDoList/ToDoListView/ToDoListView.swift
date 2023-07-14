@@ -1,4 +1,3 @@
-//
 //  ToDoList.swift
 //  BucksSwiftUI
 //
@@ -6,7 +5,7 @@
 //
 
 import SwiftUI
-import Firebase // Add import statement for Firebase
+import Firebase // Import Firebase framework for authentication
 
 struct ToDoItem: Identifiable, Codable {
     var id: String?

@@ -4,6 +4,7 @@
 //
 //  Created by Claudia Danciu on 12/07/2023.
 //
+
 import SwiftUI
 
 struct Category: Identifiable {
@@ -13,45 +14,45 @@ struct Category: Identifiable {
 }
 
 struct HomeView: View {
-    @State private var categories: [Category] = []
-    @State private var searchText = ""
-    @State private var sortAscending: [Bool] = []
+    @State private var categories: [Category] = [] // Array to store categories of tasks
+    @State private var searchText = "" // Text entered in the search bar
+    @State private var sortAscending: [Bool] = [] // Array to track sort order for each category
 
     var body: some View {
-            NavigationView {
-                List {
-                    ForEach(categories.indices, id: \.self) { categoryIndex in
-                        let category = categories[categoryIndex]
-                        Section(header: HStack {
-                            Text(category.person)
-                                .font(.headline)
-                                .foregroundColor(.primary)
-                                .padding(.leading, 8)
-                            Spacer()
-                            sortIcon(for: categoryIndex)
-                                .padding(.trailing, 8)
-                        }) {
-                            ForEach(category.tasks.indices, id: \.self) { taskIndex in
-                                TaskRowView(title: category.tasks[taskIndex].title)
-                            }
-                            .onDelete { indexSet in
-                                deleteTasks(at: indexSet, in: categoryIndex)
-                            }
+        NavigationView {
+            List {
+                ForEach(categories.indices, id: \.self) { categoryIndex in
+                    let category = categories[categoryIndex]
+                    Section(header: HStack {
+                        Text(category.person)
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                            .padding(.leading, 8)
+                        Spacer()
+                        sortIcon(for: categoryIndex)
+                            .padding(.trailing, 8)
+                    }) {
+                        ForEach(category.tasks.indices, id: \.self) { taskIndex in
+                            TaskRowView(title: category.tasks[taskIndex].title)
+                        }
+                        .onDelete { indexSet in
+                            deleteTasks(at: indexSet, in: categoryIndex)
                         }
                     }
                 }
-                .listStyle(GroupedListStyle())
-                .navigationBarTitle("Home")
-                .searchable(text: $searchText, prompt: "Search") // Add the searchable modifier
-                .toolbar {
-                    EditButton() // Add the EditButton to enable editing mode
-                }
             }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .onAppear {
-                fetchTasks()
+            .listStyle(GroupedListStyle())
+            .navigationBarTitle("Home")
+            .searchable(text: $searchText, prompt: "Search") // Enable search functionality
+            .toolbar {
+                EditButton() // Add the EditButton to enable editing mode
             }
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .onAppear {
+            fetchTasks() // Fetch tasks when the view appears
+        }
+    }
     
     private func fetchTasks() {
         FirestoreManager.shared.fetchTasks { [self] (tasks, error) in
@@ -88,8 +89,6 @@ struct HomeView: View {
             }
     }
 
-    
-    
     private func sortIcon(for index: Int) -> some View {
         Image(systemName: sortIconName(for: index))
             .imageScale(.small)
@@ -108,15 +107,15 @@ struct HomeView: View {
     }
     
     private func deleteTasks(at indexSet: IndexSet, in categoryIndex: Int) {
-            let category = categories[categoryIndex]
-            let sortedIndexSet = indexSet.sorted()
+        let category = categories[categoryIndex]
+        let sortedIndexSet = indexSet.sorted()
+        
+        for index in sortedIndexSet {
+            let task = category.tasks[index]
             
-            for index in sortedIndexSet {
-                let task = category.tasks[index]
-                
-                categories[categoryIndex].tasks.remove(at: index)
-            }
+            categories[categoryIndex].tasks.remove(at: index)
         }
+    }
 }
 
 struct HomeView_Previews: PreviewProvider {
