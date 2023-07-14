@@ -4,7 +4,6 @@
 //
 //  Created by Claudia Danciu on 12/07/2023.
 //
-
 import SwiftUI
 
 struct Category: Identifiable {
@@ -17,12 +16,25 @@ struct HomeView: View {
     @State private var categories: [Category] = [] // Array to store categories of tasks
     @State private var searchText = "" // Text entered in the search bar
     @State private var sortAscending: [Bool] = [] // Array to track sort order for each category
+    
+    var filteredCategories: [Category] {
+        if searchText.isEmpty {
+            return categories
+        } else {
+            return categories.map { category in
+                let filteredTasks = category.tasks.filter { task in
+                    task.title.localizedStandardContains(searchText)
+                }
+                return Category(person: category.person, tasks: filteredTasks)
+            }
+        }
+    }
 
     var body: some View {
         NavigationView {
             List {
-                ForEach(categories.indices, id: \.self) { categoryIndex in
-                    let category = categories[categoryIndex]
+                ForEach(filteredCategories.indices, id: \.self) { categoryIndex in
+                    let category = filteredCategories[categoryIndex]
                     Section(header: HStack {
                         Text(category.person)
                             .font(.headline)
@@ -77,16 +89,12 @@ struct HomeView: View {
     }
     
     private func sortedTasks(for index: Int) -> [ToDoItem] {
-        let category = categories[index]
-        return category.tasks
-            .filter { task in
-                searchText.isEmpty || task.title.localizedStandardContains(searchText)
-            }
-            .sorted { (task1, task2) -> Bool in
-                let title1 = task1.title ?? ""
-                let title2 = task2.title ?? ""
-                return sortAscending[index] ? title1 < title2 : title1 > title2
-            }
+        let category = filteredCategories[index]
+        return category.tasks.sorted { (task1, task2) -> Bool in
+            let title1 = task1.title ?? ""
+            let title2 = task2.title ?? ""
+            return sortAscending[index] ? title1 < title2 : title1 > title2
+        }
     }
 
     private func sortIcon(for index: Int) -> some View {
@@ -107,13 +115,13 @@ struct HomeView: View {
     }
     
     private func deleteTasks(at indexSet: IndexSet, in categoryIndex: Int) {
-        let category = categories[categoryIndex]
+        let category = filteredCategories[categoryIndex]
         let sortedIndexSet = indexSet.sorted()
         
         for index in sortedIndexSet {
             let task = category.tasks[index]
             
-            categories[categoryIndex].tasks.remove(at: index)
+            categories[categoryIndex].tasks.removeAll(where: { $0.id == task.id })
         }
     }
 }
