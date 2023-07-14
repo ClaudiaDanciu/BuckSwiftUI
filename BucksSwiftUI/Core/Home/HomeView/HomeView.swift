@@ -103,9 +103,11 @@ struct HomeView: View {
 
 struct TaskRowView: View {
     var title: String
+    @State private var isSelected = false // Added state for radio button selection
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
+        HStack {
+            RadioButton(isSelected: $isSelected) // Added radio button
             Text(title)
                 .font(.subheadline)
                 .foregroundColor(.primary)
@@ -113,6 +115,20 @@ struct TaskRowView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.vertical, 8)
+    }
+}
+
+struct RadioButton: View {
+    @Binding var isSelected: Bool
+
+    var body: some View {
+        Button(action: {
+            isSelected.toggle()
+        }) {
+            Image(systemName: isSelected ? "largecircle.fill.circle" : "circle")
+                .foregroundColor(.blue)
+                .imageScale(.large)
+        }
     }
 }
 
