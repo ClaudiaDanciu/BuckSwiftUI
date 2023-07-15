@@ -1,3 +1,10 @@
+//
+//  RootView.swift
+//  BucksSwiftUI
+//
+//  Created by Claudia Danciu on 10/07/2023.
+//
+
 import SwiftUI
 
 struct RootView: View {
