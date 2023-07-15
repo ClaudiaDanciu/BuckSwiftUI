@@ -10,7 +10,7 @@
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <imageView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Light Splash Screen" id="Pv4-fe-DgD">
+                    <imageView key="view" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Light Splash Screen" adjustsImageSizeForAccessibilityContentSizeCategory="YES" id="0zW-6u-XfZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
@@ -21,6 +21,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Light Splash Screen" width="375" height="812"/>
+        <image name="Light Splash Screen" width="383" height="820"/>
     </resources>
 </document>
