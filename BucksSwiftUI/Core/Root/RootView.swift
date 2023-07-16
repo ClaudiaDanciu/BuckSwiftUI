@@ -21,12 +21,13 @@ struct RootView: View {
                 else if selectedTab == .homeTab {
                     HomeView() // Show the HomeView if the home tab is selected
                 }
+                TabBarView(selectedTab: $selectedTab)
+                    .padding(.bottom, 12) // Add bottom padding to the TabBarView
             } else {
                 LoginView() // Show the LoginView if the user session is not available
             }
             
-            TabBarView(selectedTab: $selectedTab)
-                .padding(.bottom, 12) // Add bottom padding to the TabBarView
+            
         }
         .edgesIgnoringSafeArea(.bottom) // Extend the content to the bottom edge, ignoring safe area
     }
