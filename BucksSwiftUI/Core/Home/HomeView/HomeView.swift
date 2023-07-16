@@ -49,6 +49,7 @@ struct HomeView: View {
                         }
                         .onDelete { indexSet in
                             deleteTasks(at: indexSet, in: categoryIndex)
+                            sortTasks()
                         }
                     }
                 }
@@ -90,12 +91,18 @@ struct HomeView: View {
     
     private func sortedTasks(for index: Int) -> [ToDoItem] {
         let category = filteredCategories[index]
-        return category.tasks.sorted { (task1, task2) -> Bool in
+        let ascending = sortAscending[index]
+        return category.tasks.sorted { task1, task2 in
             let title1 = task1.title ?? ""
             let title2 = task2.title ?? ""
-            return sortAscending[index] ? title1 < title2 : title1 > title2
+            if ascending {
+                return title1 < title2
+            } else {
+                return title1 > title2
+            }
         }
     }
+
 
     private func sortIcon(for index: Int) -> some View {
         Image(systemName: sortIconName(for: index))
@@ -112,7 +119,15 @@ struct HomeView: View {
     
     private func toggleSort(for index: Int) {
         sortAscending[index].toggle()
+        sortTasks()
     }
+
+    private func sortTasks() {
+        for index in categories.indices {
+            categories[index].tasks = sortedTasks(for: index)
+        }
+    }
+
     
     private func deleteTasks(at indexSet: IndexSet, in categoryIndex: Int) {
         let category = filteredCategories[categoryIndex]
